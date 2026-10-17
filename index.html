@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#f4f4f0" />
+  <title>Scriptographer Web</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-dot"></span><strong>Scriptographer</strong><span class="muted">Web</span></div>
+      <div class="top-actions">
+        <button class="ghost" id="newBtn">New</button>
+        <button class="ghost" id="openBtn">Open</button>
+        <button class="ghost" id="saveBtn">Save</button>
+        <button class="ghost" id="exportBtn">Export</button>
+        <button class="primary" id="runBtn">Run <span>⌘↵</span></button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar left-panel">
+        <div class="panel-heading"><span>Library</span><button class="icon-btn" id="addScriptBtn" title="New script">＋</button></div>
+        <div class="tabs" id="libraryTabs">
+          <button class="tab active" data-tab="examples">Examples</button>
+          <button class="tab" data-tab="projects">Projects</button>
+        </div>
+        <div id="libraryList" class="library-list"></div>
+        <div class="panel-heading compact"><span>Layers</span><button class="icon-btn" id="addLayerBtn" title="Add layer">＋</button></div>
+        <div id="layersList" class="layers-list"></div>
+      </aside>
+
+      <section class="stage-wrap">
+        <div class="stage-toolbar">
+          <div class="tool-group" id="toolButtons">
+            <button class="tool active" data-tool="select" title="Select (V)">↖</button>
+            <button class="tool" data-tool="hand" title="Pan (H)">✋</button>
+            <button class="tool" data-tool="script" title="Script Tool (T)">⌁</button>
+            <button class="tool" data-tool="pen" title="Pen (P)">✒</button>
+            <button class="tool" data-tool="rect" title="Rectangle (R)">□</button>
+            <button class="tool" data-tool="ellipse" title="Ellipse (O)">○</button>
+            <button class="tool" data-tool="text" title="Text (X)">T</button>
+          </div>
+          <div class="view-status"><span id="zoomLabel">100%</span><span>·</span><span id="cursorLabel">0, 0</span></div>
+        </div>
+        <div class="canvas-viewport" id="canvasViewport">
+          <svg id="artboard" xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" tabindex="0" aria-label="Vector artboard">
+            <defs>
+              <filter id="selectionGlow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-opacity=".45"/></filter>
+            </defs>
+            <rect id="paper" x="0" y="0" width="1200" height="800" fill="#fff"/>
+            <g id="documentRoot"></g>
+            <g id="overlayRoot" pointer-events="none"></g>
+          </svg>
+        </div>
+        <div class="console-dock" id="consoleDock">
+          <div class="console-head"><span>Console</span><div><button class="ghost mini" id="clearConsoleBtn">Clear</button><button class="icon-btn" id="toggleConsoleBtn">⌄</button></div></div>
+          <pre id="consoleOutput"></pre>
+        </div>
+      </section>
+
+      <aside class="sidebar right-panel">
+        <div class="panel-heading"><span>Inspector</span><span id="selectionMeta" class="muted">No selection</span></div>
+        <div id="inspector" class="inspector"></div>
+        <div class="panel-heading compact"><span>Script</span><div class="editor-actions"><button class="ghost mini" id="formatBtn">Format</button><button class="ghost mini" id="stopBtn">Stop</button></div></div>
+        <textarea id="codeEditor" spellcheck="false" aria-label="JavaScript editor"></textarea>
+        <div class="editor-footer"><span id="scriptName">Untitled.js</span><span>JavaScript</span></div>
+      </aside>
+    </main>
+  </div>
+
+  <input type="file" id="projectFileInput" accept=".json,.sgw" hidden />
+  <input type="file" id="imageFileInput" accept="image/*" hidden />
+  <script src="./app.js"></script>
+</body>
+</html>
